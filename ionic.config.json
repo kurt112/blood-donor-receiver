@@ -1,0 +1,7 @@
+{
+  "name": "blood-donor-receiver",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
