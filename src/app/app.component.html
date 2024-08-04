@@ -1,29 +1,75 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+  <ion-split-pane contentId="sidebar-content">
+    <ion-menu contentId="sidebar-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>Inbox</ion-list-header>
           <ion-note>hi&#64;ionicframework.com</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let p of appPages; let i = index"
+          >
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[p.url]"
+              lines="none"
+              detail="false"
+              routerLinkActive="selected"
+            >
+              <ion-icon
+                aria-hidden="true"
+                slot="start"
+                [ios]="p.icon + '-outline'"
+                [md]="p.icon + '-sharp'"
+              ></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+        <ion-list>
+          <ion-item lines="none">
+            <ion-text color="medium">
+              <h5 >Filter by location</h5>
+            </ion-text>
+          </ion-item>
+          <ion-item no-lines >
+            <ion-select placeholder="Regions" (ngModelChange)="_handleChangeRegion($event)" [(ngModel)]="address.region">
+              <div slot="label">
+                Regions <ion-text color="secondary">(Optional)</ion-text>
+              </div>
+              <ion-select-option *ngFor="let region of regions" [value]="region">{{ region.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item no-lines >
+            <ion-select placeholder="Province" (ngModelChange)="_handleChangeProvince($event)" [(ngModel)]="address.province">
+              <div slot="label">
+                Province <ion-text color="secondary">(Optional)</ion-text>
+              </div>
+              <ion-select-option *ngFor="let province of provinces" [value]="province">{{ province.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item no-lines >
+            <ion-select placeholder="State" (ngModelChange)="_handleChangeProvince($event)" [(ngModel)]="address.state">
+              <div slot="label">
+                State <ion-text color="secondary">(Optional)</ion-text>
+              </div>
+              <ion-select-option *ngFor="let state of states" [value]="state">{{ state.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
 
+        <!-- <ion-list id="labels-list">
+          <ion-list-header>Labels</ion-list-header>
+  
           <ion-item *ngFor="let label of labels" lines="none">
             <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
             <ion-label>{{ label }}</ion-label>
           </ion-item>
-        </ion-list>
+        </ion-list> -->
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-router-outlet id="sidebar-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
